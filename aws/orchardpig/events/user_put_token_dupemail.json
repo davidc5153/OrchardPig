@@ -1,0 +1,6 @@
+{
+    "headers": { 
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxLCJpYXQiOjE2NDQ5MTg1NjEsImV4cCI6MTY0NTUyMzM2MX0.yN4-8p6KK9rluoJs_rs3mPZSNF_wViXaH9mEm6QEM50"
+    },    
+    "body": "{ \"user\": { \"email\": \"test9@test.com\",\"password\": \"password\",\"firstName\": \"Steve\",\"lastName\": \"Doe\",\"phone\": \"(02) 1234 1234\",\"address\": \"1 Smith Street\", \"city\": \"Sydney\", \"state\": \"NSW\",\"postcode\": \"2000\",\"dob\": \"2000-03-02\"}}"
+}

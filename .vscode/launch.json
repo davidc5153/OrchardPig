@@ -1,0 +1,54 @@
+{
+    "configurations": [
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "orchardpig-api:post.orchardpigLambdaHandler (nodejs14.x)",
+            "invokeTarget": {
+                "target": "code",
+                "projectRoot": "${workspaceFolder}/aws/orchardpig/orchardpig-api",
+                "lambdaHandler": "post.orchardpigLambdaHandler"
+            },
+            "lambda": {
+                "runtime": "nodejs14.x",
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "orchardpig:OrchardPigPost (nodejs14.x)",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/aws/orchardpig/template.yaml",
+                "logicalId": "OrchardPigPost"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {},
+                "runtime": "nodejs14.x"
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "API orchardpig:OrchardPigPost (nodejs14.x)",
+            "invokeTarget": {
+                "target": "api",
+                "templatePath": "${workspaceFolder}/aws/orchardpig/template.yaml",
+                "logicalId": "OrchardPigPost"
+            },
+            "api": {
+                "path": "/orchardpig-api",
+                "httpMethod": "post",
+                "payload": {
+                    "json": {}
+                }
+            },
+            "lambda": {
+                "runtime": "nodejs14.x"
+            }
+        }
+    ]
+}

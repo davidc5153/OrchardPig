@@ -1,0 +1,6 @@
+{
+    "headers": { 
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxLCJpYXQiOjE2NDQyMDgwNjgsImV4cCI6MTY0NDgxMjg2OH0.PIq-V0N-jclUzQ563hnVbKp1jbPGLmVzUdJhoWh6nIk"
+    },
+    "body": "{ \"status\": \"TENTATIVE\", \"firstName\": \"Johnny\",\"lastName\": \"Doe\", \"email\": \"test@test.com\", \"phone\": \"(02) 1234 1234\", \"guests\": 6, \"date\": \"2022-03-01\", \"timeslot\": \"2:00 PM\", \"notes\": \"This is a booking note\" }"
+}

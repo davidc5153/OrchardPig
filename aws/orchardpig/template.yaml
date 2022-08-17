@@ -1,0 +1,415 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  orchardpig
+  
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Api:
+    Cors:
+      AllowOrigin: "'*'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with,Access-Control-Allow-Origin'"
+      AllowMethods: "'POST,GET,PUT,PATCH,DELETE,OPTIONS'"
+  Function:
+    Timeout: 10
+    Environment:
+      Variables:
+        REGION: ap-southeast-2
+        SECRET_NAME: orchardpig
+        DBCONNECTION: '{{resolve:secretsmanager:orchardpig}}'
+        ACCESS_TOKEN_SECRET: ***REMOVED***
+        TOKEN_EXPIRY: 7d
+    Layers:
+      - !Ref SharedLayer
+
+# *****************************************************
+# ****************** RESOURCES ************************ 
+# *****************************************************
+
+Resources:
+
+  # *********************** LAYERS ********************
+
+  # SharedLayer
+  SharedLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: SharedLayer
+      ContentUri: layers/
+      RetentionPolicy: Retain
+    Metadata:
+      BuildMethod: nodejs14.x
+
+  # *********************** GET ********************
+
+  # GET-PRODUCT
+  OrchardPigGetProduct:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: product.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /product/{id+}
+            Method: get
+        OrchardPig2:
+          Type: Api
+          Properties:
+            Path: /product
+            Method: get
+
+  # GET-RESTAURANT/AVAILABILITY
+  OrchardPigGetRestaurantAvailability:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: restaurant/availability.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /restaurant/availability
+            Method: get
+
+  # GET-AUTH/VALIDATE
+  OrchardPigGetAuthValidate:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: auth/validate.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /auth/validate
+            Method: get
+
+  # GET-USER/ADDRESS
+  OrchardPigGetUserAddress:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user/address-get.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user/address
+            Method: get
+
+  OrchardPigGetRestaurantBook:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: restaurant/book-get.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /restaurant/book
+            Method: get
+
+  OrchardPigGetOrder:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: order-get.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /order
+            Method: get
+
+  # *********************** POST ********************
+
+  # POST-USER
+  OrchardPigPostUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: post
+
+  # POST-AUTH/SIGNIN
+  OrchardPigPostAuthSignin:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: auth/signin.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /auth/signin
+            Method: post
+
+  # POST-ORDER
+  OrchardPigPostOrder:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: order.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /order
+            Method: post
+
+  # POST-USER/CART
+  OrchardPigPostUserCart:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user/cart-post.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user/cart
+            Method: post
+
+  # POST-RESTAURANT/BOOK
+  OrchardPigPostRestaurantBook:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: restaurant/book-post.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /restaurant/book
+            Method: post
+
+  # *********************** PUT ********************
+
+  # PUT-USER/CART
+  OrchardPigPutUserCart:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user/cart-put.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user/cart
+            Method: put
+
+  # PUT-USER/ADDRESS
+  OrchardPigPutUserAddress:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user/address-put.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user/address
+            Method: put
+
+  # PUT-USER
+  OrchardPigPutUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user-put.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: put
+
+  # *********************** PATCH ********************
+
+  # PATCH-USER/CART
+  OrchardPigPatchUserCart:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user/cart-patch.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user/cart
+            Method: patch
+
+  # *********************** DELETE ********************
+
+  # DELETE-USER/ADDRESS
+  OrchardPigDeleteUserAddress:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user/address-delete.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user/address
+            Method: delete
+
+  OrchardPigDeleteRestaurantBook:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: restaurant/book-delete.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /restaurant/book
+            Method: delete
+
+  # DELETE-USER/CART
+  OrchardPigDeleteUserCart:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: orchardpig-api/
+      Handler: user/cart-delete.handler
+      Runtime: nodejs14.x
+      Role: arn:aws:iam::489697167426:role/orchardpig-OrchardPigFunctionRole-P0XUGJ8XDFTZ
+      Architectures:
+        - x86_64
+      Policies:
+        AWSLambdaBasicExecutionRole
+      Events:
+        OrchardPig:
+          Type: Api
+          Properties:
+            Path: /user/cart
+            Method: delete
+
+# *****************************************************
+# ********************* OUTPUT ************************ 
+# *****************************************************
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+
+  # API
+  OrchardPigApi:
+    Description: "OrchardPig - API Gateway endpoint URL for Prod stage OrchardPig function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/orchardpig/"
+
+  # LAYER
+  OrchardPigSharedLayer:
+    Description: "Shared Layer Code ARN"
+    Value: !Ref SharedLayer
+

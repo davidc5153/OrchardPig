@@ -1,0 +1,5 @@
+{
+    "queryStringParameters": {
+        "products": "[12,15,27]"
+    }
+}

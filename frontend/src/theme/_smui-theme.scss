@@ -1,0 +1,74 @@
+@use "sass:color";
+
+@use "@material/theme/color-palette";
+
+@use "@material/theme/index" as theme with (
+  $primary: #a05416,
+  $secondary: #c3dfe8,
+  $surface: #fff,
+  $background: #fef3dd,
+  $error: color-palette.$red-700
+);
+
+.mdc-button {
+  --mdc-theme-primary: #1e618a;
+  --mdc-theme-on-primary: #fff;
+  --mdc-protected-button-container-height: 60px;
+  text-decoration: none !important;
+
+  &--raised {
+    min-width: 100px !important;
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+}
+
+.mdc-text-field,
+.mdc-text-field--textarea,
+.mdc-select {
+  width: 100% !important;
+}
+
+// removes '*' suffix from required input labels.
+.mdc-floating-label--required::after {
+  content: unset !important;
+}
+
+// styles badge component used by the cart button
+.smui-badge.smui-badge {
+  &--color-primary {
+    transform: translateX(10%) translateY(120%) !important;
+    padding: 4px;
+    min-width: 24px !important;
+    line-height: unset !important;
+    font-size: 14px !important;
+    font-weight: 500;
+    background-color: #ee0017 !important;
+  }
+}
+
+.smui-accordion {
+  .smui-accordion__panel > .smui-accordion__header {
+    flex-wrap: unset !important;
+
+    .smui-accordion__header__title {
+      white-space: unset !important;
+    }
+  }
+}
+
+// changes the accordion panels
+.smui-paper.smui-paper--unelevated {
+  background-color: transparent !important;
+  // changes the color of accordion buttons / panel content
+  // color: #FFF !important;
+}
+
+// affects autocomplete and select option menus
+:root {
+  --mdc-menu-max-height: 300px;
+}

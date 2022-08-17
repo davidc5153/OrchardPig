@@ -1,0 +1,6 @@
+{
+    "headers": { 
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAxLCJpYXQiOjE2NDQ5MTg1NjEsImV4cCI6MTY0NTUyMzM2MX0.yN4-8p6KK9rluoJs_rs3mPZSNF_wViXaH9mEm6QEM50"
+    },
+    "body": "{ \"guests\": 2, \"date\": \"2022-03-01\", \"timeslot\": \"2:00 PM\", \"notes\": \"This is a booking note\" }"
+}

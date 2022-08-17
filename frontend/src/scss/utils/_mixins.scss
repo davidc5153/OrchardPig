@@ -1,0 +1,59 @@
+// mixins
+
+@mixin for-small-mobile {
+  @media only screen and (max-width: 360px) {
+    @content;
+  }
+}
+
+@mixin for-mobile-only {
+  @media only screen and (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-up {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin for-below-tablet {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin for-desktop-up {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin center-margins {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// defaults to an empty image url if no file path is provided
+@mixin hero-image($image: url("")) {
+  width: 100%;
+  height: 60vh;
+  background: $image;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@mixin section-width {
+  width: 100%;
+  max-width: 700px;
+}
+
+@mixin parrallax-off {
+  background-attachment: scroll;
+}

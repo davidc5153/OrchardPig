@@ -1,0 +1,16 @@
+{
+    "name": "lambda-layer-functions",
+    "version": "1.0.0",
+    "description": "NodeJS lambda layer invocable functions",
+    "author": "David Ceccato",
+    "license": "MIT",
+    "scripts": {},
+    "devDependencies": {
+        "aws-sdk": "^2.517.0",
+        "mysql": "^2.18.1"
+    },
+    "dependencies": {
+        "mysql2": "^2.3.3",
+        "jsonwebtoken": "^8.5.1"
+    }
+}

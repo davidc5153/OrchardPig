@@ -1,0 +1,173 @@
+* {
+  box-sizing: border-box;
+
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+html {
+  font-size: 18px;
+  background-color: $primary-color;
+}
+
+body {
+  background-color: $background;
+}
+
+#svelte {
+  @include col;
+  overflow-x: hidden;
+}
+
+main {
+  background-image: url("/images/grunge-ground-background.jpg");
+  background-size: 50%;
+  background-repeat: repeat;
+  background-blend-mode: multiply;
+  background-color: $background;
+
+  // cannot target all section elements because nav bar also uses them
+  section {
+    width: 100%;
+
+    @include for-tablet-up {
+      max-width: $column-max-width;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-primary);
+  line-height: 80%;
+  letter-spacing: 0.02em;
+}
+
+p,
+li,
+a,
+span {
+  font-family: var(--font-family-secondary);
+  line-height: 150%;
+  letter-spacing: 0.02em;
+}
+
+h1,
+h2 {
+  text-transform: capitalize;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+
+  @include for-tablet-up {
+    font-size: 5rem;
+  }
+}
+
+h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+
+  @include for-tablet-up {
+    font-size: 4.5rem;
+  }
+}
+
+h3 {
+  font-size: 3rem;
+  color: $secondary-color;
+}
+
+p {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 700px;
+}
+
+a {
+  text-decoration: underline;
+}
+
+a,
+a:visited {
+  color: #0176be;
+}
+
+a:hover {
+  /* color: */
+  text-decoration: none;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+// products / shopping cart / checkout
+.money {
+  display: inline-block;
+
+  &::before {
+    content: "AUD ";
+  }
+}
+
+h1 .money {
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.submit-btn {
+  text-align: center;
+}
+
+.line-through {
+  display: inline-block;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  text-transform: uppercase;
+
+  &:before,
+  &:after {
+    content: "";
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    height: 1px;
+    width: 50%;
+    background-color: #000;
+  }
+
+  --spacing: 1em;
+
+  &:before {
+    right: var(--spacing);
+    margin-left: -50%;
+  }
+
+  &:after {
+    left: var(--spacing);
+    margin-right: -50%;
+  }
+}

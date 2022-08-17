@@ -1,0 +1,7 @@
+{
+    "queryStringParameters": {
+        "guests": 4, 
+        "date": "2022-03-27", 
+        "timeslots": "[\"11:00 AM\", \"1:00 PM\"]"
+    }
+}

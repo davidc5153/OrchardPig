@@ -1,0 +1,21 @@
+$primary-color: #A05416;
+$secondary-color: #7d1902;
+$background: #FEF3DD;
+$footer: #8F4305;
+
+$button-primary: #1e618a;
+$button-secondary: #c3dfe8;
+
+$border-radius: 20px;
+$column-max-width: 800px;
+
+:root {
+  --primary-color: #A05416;
+  --secondary-color: #7d1902;
+  --error-color: #FA4E56;
+
+  // Typography
+  --font-family-primary: "Road Rage", cursive;
+  --font-family-secondary: "IBM Plex Sans", sans-serif;
+  --product-bg: radial-gradient(#fcebcc, #f9dda5);
+}
