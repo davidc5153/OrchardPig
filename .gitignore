@@ -223,3 +223,4 @@ aws/orchardpig/test.sh
 .vercel*
 frontend/package-lock.json
 *.jar
+token.txt
