@@ -222,3 +222,4 @@ aws/orchardpig/layers/rds-config.js
 aws/orchardpig/test.sh
 .vercel*
 frontend/package-lock.json
+*.jar
