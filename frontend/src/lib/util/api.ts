@@ -18,7 +18,7 @@ export function setAuthorization(accessToken: string): { headers: { Authorizatio
 }
 
 // url for Google API
-const GOOGLE_API_KEY = "***REMOVED***"
+const GOOGLE_API_KEY = "REMOVED"
 
 import { Loader } from "@googlemaps/js-api-loader";
 export const googleMapsApi = new Loader({
